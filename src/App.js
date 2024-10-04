@@ -1,23 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import { useContext, useEffect } from "react";
+import BookCreate from "./components/BookCreate";
+import BookList from "./components/BookList";
+import BooksContext from "./context/books";
 
 function App() {
+  const { fetchBooks } = useContext(BooksContext);
+
+  // useEffect is used to run any code that we put inside it for the first time and rerendered at any condition that we put
+  // inside that empty square brackets
+  // without the square brackets the useEffect calls the arrow function every time.
+  // with empty square brackets the useEffect calls the arrow function only first time.
+  // with some condition inside the square brackets the useEffect calls the arrow function when it meets the condition.
+  useEffect(() => {
+    fetchBooks();
+  }, [fetchBooks]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <h1>Reading List</h1>
+      <BookList />
+      <BookCreate />
     </div>
   );
 }
